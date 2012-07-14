@@ -1,0 +1,65 @@
+#!/bin/bash
+
+cleanup()
+{
+	rm $CONTROL
+	rm $TORRENT
+	kill 0
+	exit
+}
+
+download()
+{
+	LINE=$(echo $COMMAND | sed -e 's/[^ ]* \(.*$\)/\1/' )
+	cat >> $CONTROL <<EOF
+$LINE
+g3
+/Download .torrent
+g1
+w $TORRENT
+EOF
+}
+
+search()
+{
+	SEARCH=$(echo $COMMAND | sed -e 's/^[^ ]* \(.*$\)/\1/' )
+	cat >> $CONTROL <<EOF
+b https://isohunt.com
+/<>
+i1=$SEARCH
+i2*
+g/^{.*|/j
+g/^{.*|/n
+EOF
+}
+
+torrent()
+{
+	aria2c $TORRENT
+}
+
+usage()
+{
+	cat <<EOF
+search <search terms> : prints list of available torrents
+download <number> : downloads relevant torrent file
+torrent : downloads from torrent file
+EOF
+}
+
+CONTROL=$(mktemp)
+TORRENT=$(mktemp)
+(
+	tail -f $CONTROL | edbrowse
+)&
+echo $OUTPUT
+trap cleanup SIGINT
+while read COMMAND;do
+	case "$COMMAND" in
+		download*)download;;
+		search*)search;;
+		torrent*)torrent;;
+		*)usage;;
+	esac
+done
+cleanup
