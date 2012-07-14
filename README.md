@@ -24,9 +24,9 @@ Usage
 
 Run torcl
 
-Type 'search <some terms>' to search for torrents.  The list will be output with some numbers on the left.  The source is isohunt.com.
+Type 'search {search terms}' to search for torrents.  The list will be output with some numbers on the left.  The source is isohunt.com.
 
-Type 'download <number>' to download the relevant torrent.  Give it a second to finish it.
+Type 'download {number}' to download the relevant torrent.  Give it a second to finish it.
 
 Type 'torrent' to begin downloading from the torrent file you just grabbed.
 
