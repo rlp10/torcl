@@ -13,7 +13,11 @@ aria2c http://aria2.sourceforge.net/
 Installation
 ------------
 
-Put torcl somewhere on your path.
+Put torcl somewhere on your path and make it executable.  Something like this:
+
+cp torcl $HOME/bin/
+
+chmod +x $HOME/bin/torcl
 
 Usage
 -----
@@ -35,3 +39,4 @@ Todo
 
 - Check for the prerequisite programs
 - Cleanup the output
+- Add sources other than isohunt
